@@ -43,6 +43,7 @@ int main()
     // printf("%d\n", det);
 
     print_matrix(matrix_alg_dop(matr, n, m), n, m);
+
  
 return (0);
 }
@@ -194,4 +195,18 @@ int **matrix_alg_dop(int **matr, int n, int m)
         }    
     }
 return matr_alg_dop;
+}
+
+int **trans_matrix(int **matr, int n, int m)
+{
+	int a = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			a = matr[i][j];
+			matr[i][j] = matr[j][i];
+			matr[j][i] = a;
+		}
+	}
 }
