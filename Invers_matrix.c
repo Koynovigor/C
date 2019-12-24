@@ -11,6 +11,7 @@ void free_matrix(int **matr, int n);
 int det_matr(int **matr, int n, int m);
 int **new_matrix (int **matr, int n, int m, int k, int l);
 int **matrix_alg_dop(int **matr, int n, int m);
+void trans_matrix(int **matr, int n, int m);
  
  
 int main()
@@ -38,13 +39,50 @@ int main()
 
     print_matrix(matr, n, m);
     
-    // int **new_matr = new_matrix(matr, n, m, n-1, m-1);
-    // int det = det_matr(new_matr, n ,m);
-    // printf("%d\n", det);
+    int **new_matr = new_matrix(matr, n, m, n-1, m-1);
+    int det = det_matr(new_matr, n ,m);
 
-    print_matrix(matrix_alg_dop(matr, n, m), n, m);
+    int **matr_alg_dop = matrix_alg_dop(matr, n, m);
+    trans_matrix(matr_alg_dop, n, m);
 
- 
+    float det_f = det;
+    float **matr_alg_dop_f = calloc(n, sizeof(float*));
+    if (matr_alg_dop_f== NULL)
+    {
+        perror("Ошибка");
+    }
+    for (int i = 0; i < n; i++)
+    {
+        matr_alg_dop_f[i] = calloc(m, sizeof(float));
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+           matr_alg_dop_f[i][j] = matr_alg_dop[i][j];
+        }
+        
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+           matr_alg_dop_f[i][j] = matr_alg_dop_f[i][j] / det_f;
+        }
+        
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            printf("%7.3f", matr_alg_dop_f[i][j]);
+        }
+    puts("");
+    }
+    
 return (0);
 }
  
@@ -197,12 +235,12 @@ int **matrix_alg_dop(int **matr, int n, int m)
 return matr_alg_dop;
 }
 
-int **trans_matrix(int **matr, int n, int m)
+void trans_matrix(int **matr, int n, int m)
 {
 	int a = 0;
 	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < n; j++)
+		for (int j = i; j < n; j++)
 		{
 			a = matr[i][j];
 			matr[i][j] = matr[j][i];
