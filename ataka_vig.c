@@ -19,8 +19,14 @@ int main()
     char *str_end = res_str(len_str);
 
     char *key = res_str(9);
+    key[0] = 97;
 
-    while ()
+    int len_key = 1;
+
+    while (len_key <= 8)
+    {
+
+    }
 return 0;
 }
 
@@ -42,4 +48,9 @@ void print_str(char *str, int n)
         printf("%d", str[i]);
     }
     puts("");
+}
+
+void next_key(char *str)
+{
+    if (str)
 }
